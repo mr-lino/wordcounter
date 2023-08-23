@@ -3,3 +3,7 @@ services:
     build: ./ui
     ports:
       - 4173:4173
+  api:
+    build: ./api
+    ports:
+      - 80:80
