@@ -1,8 +1,23 @@
 <script setup>
-async function submit() {
-  await new Promise(r => setTimeout(r, 1000))
-  alert('Submitted! 🎉')
+import axios from 'axios'
+
+async function submitText(inputText) {
+  const data = {
+    input_text: inputText.textinput
+  }
+  var wordCount
+  axios.post('http://127.0.0.1:8000/word-count', data)
+    .then(function (response) {
+      console.log(response.data.word_count)
+      wordCount = response.data.word_count
+      alert(`Word count: ${wordCount}`);
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
+
 </script>
 
 <template>
@@ -11,8 +26,9 @@ async function submit() {
     <FormKit
       type="form"
       #default="{ value }"
-      @submit="submit"
+      @submit="submitText"
       submit-label="Submit"
+
     >
       <FormKit
         type="textarea"
