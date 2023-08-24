@@ -6,22 +6,26 @@ from fastapi.responses import RedirectResponse
 
 app = FastAPI()
 
-origins = [
+ORIGINS = [
     "http://localhost:4173",
     "http://127.0.0.1:4173",
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
 
+METHODS = ["GET", "POST", "OPTIONS"]
+
+HEADERS = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["*"],
+    allow_origins=ORIGINS,
+    allow_methods=METHODS,
+    allow_headers=HEADERS,
 )
 
 
-@app.get("/")
+@app.get("/", status_code=status.HTTP_308_PERMANENT_REDIRECT)
 async def root():
     return RedirectResponse("/docs")
 
