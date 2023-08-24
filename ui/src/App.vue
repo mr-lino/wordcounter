@@ -6,7 +6,7 @@ async function submitText(inputText) {
     input_text: inputText.textinput
   }
   var wordCount
-  axios.post('http://127.0.0.1:8000/word-count', data)
+  axios.post('http://127.0.0.1:80/word-count', data)
     .then(function (response) {
       console.log(response.data.word_count)
       wordCount = response.data.word_count
